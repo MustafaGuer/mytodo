@@ -2,7 +2,7 @@ import React from "react";
 
 const NewTodo: React.FC = () => {
   return (
-    <div className="musg-w-fit musg-mx-auto musg-mt-10 musg-bg-white musg-p-10 musg-rounded-xl musg-shadow-lg">
+    <div className="musg-w-fit musg-mx-auto musg-bg-white musg-p-10 musg-rounded-xl musg-shadow-lg">
       <form>
         <label
           htmlFor="todo"
