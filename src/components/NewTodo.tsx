@@ -1,9 +1,31 @@
-import React from "react";
+import { TodosContext } from "@/store/todos-context";
+import { useContext, useRef, useState } from "react";
 
 const NewTodo: React.FC = () => {
+  const todoInputRef = useRef<HTMLInputElement>(null);
+  const [empty, setEmpty] = useState(false);
+
+  const todosCtx = useContext(TodosContext);
+
+  const submitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const enteredTodo = todoInputRef.current!.value;
+
+    if (enteredTodo.trim().length === 0) {
+      setEmpty(true);
+      return;
+    }
+
+    setEmpty(false);
+
+    todosCtx.addTodo(enteredTodo);
+    todoInputRef.current!.value = "";
+  };
+
   return (
     <div className="musg-w-fit musg-mx-auto musg-bg-white musg-p-10 musg-rounded-xl musg-shadow-lg">
-      <form>
+      <form onSubmit={submitHandler}>
         <label
           htmlFor="todo"
           className="musg-block musg-font-bold musg-text-slate-500 musg-ml-1"
@@ -11,13 +33,20 @@ const NewTodo: React.FC = () => {
           Todo:
         </label>
         <input
+          ref={todoInputRef}
           id="todo"
           name="todo"
           placeholder="What is your next todo ?"
           type="text"
+          min={3}
           className="musg-block musg-font-bold musg-text-slate-700 placeholder:musg-text-slate-400
           focus-visible:musg-outline-none musg-shadow musg-rounded musg-px-2 musg-py-1"
         />
+        {empty && (
+          <span className="musg-text-red-500">
+            You must enter at least 3 letters!
+          </span>
+        )}
         <div className="musg-mt-8 musg-flex musg-justify-between">
           <button
             type="button"

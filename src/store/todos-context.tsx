@@ -3,14 +3,40 @@ import Todo from "@/models/todo";
 
 type TodosContextObj = {
   items: Todo[];
+  addTodo: (text: string) => void;
 };
 
 export const TodosContext = React.createContext<TodosContextObj>({
   items: [],
+  addTodo: () => {},
 });
 
-const TodosContextProvider = () => {
-  return <div>TodosContextProvider</div>;
+const TodosContextProvider: React.FC<{ children: React.ReactNode }> = (
+  props
+) => {
+  const [todos, setTodos] = useState<Todo[]>([
+    new Todo("Coden"),
+    new Todo("Lesen"),
+    new Todo("Gym"),
+  ]);
+
+  const addTodoHandler = (text: string) => {
+    const newTodo = new Todo(text);
+
+    setTodos((prevTodos) => {
+      return prevTodos.concat(newTodo);
+    });
+  };
+
+  const contextValue: TodosContextObj = {
+    items: todos,
+    addTodo: addTodoHandler,
+  };
+  return (
+    <TodosContext.Provider value={contextValue}>
+      {props.children}
+    </TodosContext.Provider>
+  );
 };
 
 export default TodosContextProvider;

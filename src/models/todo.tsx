@@ -2,10 +2,10 @@ import { nanoid } from "nanoid";
 
 class Todo {
   id: string;
-  todo: string;
+  text: string;
   constructor(todoText: string) {
     this.id = nanoid();
-    this.todo = todoText;
+    this.text = todoText;
   }
 }
 
