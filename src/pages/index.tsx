@@ -3,9 +3,11 @@ import { Inter } from "next/font/google";
 import NewTodo from "@/components/NewTodo";
 import Todos from "@/components/Todos";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+const Home: React.FC = () => {
+  
   return (
     <>
       <Head>
@@ -20,4 +22,7 @@ export default function Home() {
       </main>
     </>
   );
-}
+};
+export default Home;
+
+
